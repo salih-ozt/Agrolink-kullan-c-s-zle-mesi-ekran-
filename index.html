@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="tr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agrolink - Kullanıcı Sözleşmesi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    .font-heading {
+      font-family: 'Crimson Pro', Georgia, serif;
+    }
+    .font-body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+    }
+    .scroll-shadow {
+      background: 
+        linear-gradient(white 30%, rgba(255,255,255,0)),
+        linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,
+        radial-gradient(foldcorner at 50% 0, rgba(0,0,0,.15), transparent 70%),
+        radial-gradient(foldcorner at 50% 100%, rgba(0,0,0,.15), transparent 70%) 0 100%;
+      background-repeat: no-repeat;
+      background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+      background-attachment: local, local, scroll, scroll;
+    }
+    .article-number {
+      counter-increment: article;
+    }
+    .article-number::before {
+      content: "Madde " counter(article) " - ";
+      font-weight: 600;
+    }
+    .agreement-content {
+      counter-reset: article;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body">
+  <div id="app-wrapper" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #f0f7f0 0%, #e8f4e8 50%, #f5f9f5 100%);"><!-- Header -->
+   <header class="sticky top-0 z-10 backdrop-blur-md bg-white/80 border-b border-emerald-100 shadow-sm">
+    <div class="max-w-4xl mx-auto px-6 py-4">
+     <div class="flex items-center gap-3"><!-- Logo -->
+      <div class="flex items-center gap-2">
+       <svg width="40" height="40" viewbox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#059669" fill-opacity="0.1" /> <path d="M20 8C20 8 12 14 12 22C12 26.4183 15.5817 30 20 30C24.4183 30 28 26.4183 28 22C28 14 20 8 20 8Z" fill="#059669" /> <path d="M20 12C20 12 16 16 16 21C16 23.2091 17.7909 25 20 25C22.2091 25 24 23.2091 24 21C24 16 20 12 20 12Z" fill="#34D399" /> <path d="M20 8V30" stroke="#065F46" stroke-width="1.5" stroke-linecap="round" /> <path d="M14 18C14 18 17 19 20 19C23 19 26 18 26 18" stroke="#065F46" stroke-width="1" stroke-linecap="round" />
+       </svg>
+       <div>
+        <h1 id="company-name" class="font-heading text-xl font-bold text-emerald-800">Agrolink</h1>
+        <p class="text-xs text-emerald-600">Tarımın Sosyal Ağı</p>
+       </div>
+      </div>
+      <div class="ml-auto"><span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+        <svg class="w-3 h-3 mr-1" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg> Resmi Belge </span>
+      </div>
+     </div>
+    </div>
+   </header><!-- Main Content -->
+   <main class="max-w-4xl mx-auto px-6 py-8"><!-- Document Title -->
+    <div class="text-center mb-8 opacity-0 animate-fade-in">
+     <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 mb-4">
+      <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+     </div>
+     <h2 id="main-title" class="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-2">Kullanıcı Sözleşmesi</h2>
+     <p class="text-gray-600">Son Güncelleme: <span id="update-date"></span></p>
+     <div class="flex items-center justify-center gap-4 mt-4 text-sm text-gray-500"><span class="flex items-center gap-1">
+       <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+       </svg> ~15 dakika okuma </span> <span class="flex items-center gap-1">
+       <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0114.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+       </svg> 25 Madde </span>
+     </div>
+    </div><!-- Quick Navigation -->
+    <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 mb-8 opacity-0 animate-fade-in animate-delay-1">
+     <h3 class="font-heading text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+      <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" />
+      </svg> Hızlı Erişim</h3>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-3"><a href="#genel-hukumler" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-medium transition-colors"> <span class="w-6 h-6 rounded-full bg-emerald-200 flex items-center justify-center text-xs">1</span> Genel Hükümler </a> <a href="#uyelik" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-medium transition-colors"> <span class="w-6 h-6 rounded-full bg-emerald-200 flex items-center justify-center text-xs">2</span> Üyelik </a> <a href="#icerik" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-medium transition-colors"> <span class="w-6 h-6 rounded-full bg-emerald-200 flex items-center justify-center text-xs">3</span> İçerik </a> <a href="#gizlilik" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-medium transition-colors"> <span class="w-6 h-6 rounded-full bg-emerald-200 flex items-center justify-center text-xs">4</span> Gizlilik </a>
+     </div>
+    </div><!-- Agreement Content -->
+    <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden opacity-0 animate-fade-in animate-delay-2"><!-- Important Notice -->
+     <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200 p-6">
+      <div class="flex gap-4">
+       <div class="flex-shrink-0">
+        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-amber-600" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+         </svg>
+        </div>
+       </div>
+       <div>
+        <h4 class="font-semibold text-amber-800 mb-1">Önemli Bilgilendirme</h4>
+        <p class="text-amber-700 text-sm leading-relaxed">Bu sözleşmeyi dikkatlice okuyunuz. Agrolink platformuna üye olarak veya hizmetlerimizi kullanarak bu sözleşmenin tüm hükümlerini kabul etmiş sayılırsınız. Sözleşmeyi kabul etmeden önce tüm maddeleri anladığınızdan emin olunuz.</p>
+       </div>
+      </div>
+     </div><!-- Agreement Sections -->
+     <div class="p-6 md:p-8 agreement-content"><!-- Section 1: Genel Hükümler -->
+      <section id="genel-hukumler" class="mb-10">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 1: GENEL HÜKÜMLER</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">TARAFLAR VE TANIMLAR</p>
+         <p class="mb-3">İşbu Kullanıcı Sözleşmesi ("Sözleşme"), <strong>Agrolink Tarım Teknolojileri A.Ş.</strong> ("Şirket", "Biz" veya "Agrolink") ile Agrolink platformuna ("Platform") erişen veya hizmetlerini kullanan gerçek veya tüzel kişi ("Kullanıcı", "Üye" veya "Siz") arasında akdedilmiştir.</p>
+         <ul class="list-disc list-inside space-y-2 ml-4 text-gray-600">
+          <li><strong>Platform:</strong> Agrolink web sitesi, mobil uygulamaları ve tüm dijital hizmetleri</li>
+          <li><strong>Hizmetler:</strong> Tarımsal içerik paylaşımı, sosyal ağ özellikleri, pazar yeri ve danışmanlık servisleri</li>
+          <li><strong>İçerik:</strong> Kullanıcılar tarafından oluşturulan metin, görsel, video ve diğer materyaller</li>
+          <li><strong>Hesap:</strong> Kullanıcıya ait kişisel profil ve erişim bilgileri</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">SÖZLEŞMENİN KONUSU</p>
+         <p>İşbu Sözleşme'nin konusu, Agrolink platformu üzerinden sunulan tarım odaklı sosyal medya hizmetlerinin kullanım şartlarını, tarafların hak ve yükümlülüklerini, gizlilik politikalarını ve uyuşmazlık çözüm mekanizmalarını düzenlemektir. Platform; çiftçiler, tarım uzmanları, araştırmacılar, tedarikçiler ve tarımla ilgilenen tüm bireylerin bir araya gelerek bilgi paylaşımında bulunabileceği, ürünlerini sergileyebileceği ve profesyonel ağlar oluşturabileceği kapsamlı bir ekosistem sunmaktadır.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">SÖZLEŞMENİN KABULÜ</p>
+         <p class="mb-3">Aşağıdaki eylemlerden herhangi birini gerçekleştirmeniz halinde işbu Sözleşme'yi ve eklerini (Gizlilik Politikası, Çerez Politikası, Topluluk Kuralları) kabul etmiş sayılırsınız:</p>
+         <div class="bg-gray-50 rounded-xl p-4 space-y-2">
+          <p class="flex items-start gap-2"><span class="text-emerald-500 mt-1">✓</span> Platform'a üye olmak veya üyelik başvurusunda bulunmak</p>
+          <p class="flex items-start gap-2"><span class="text-emerald-500 mt-1">✓</span> Platform'u ziyaret etmek veya hizmetlerden faydalanmak</p>
+          <p class="flex items-start gap-2"><span class="text-emerald-500 mt-1">✓</span> İçerik oluşturmak, paylaşmak veya etkileşimde bulunmak</p>
+          <p class="flex items-start gap-2"><span class="text-emerald-500 mt-1">✓</span> "Kabul Ediyorum" veya benzeri bir onay butonuna tıklamak</p>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">SÖZLEŞME DEĞİŞİKLİKLERİ</p>
+         <p>Şirket, işbu Sözleşme'yi dilediği zaman, herhangi bir bildirim yükümlülüğü olmaksızın değiştirme hakkını saklı tutar. Değişiklikler, Platform'da yayınlandığı tarihte yürürlüğe girer. Önemli değişiklikler için Kullanıcılara e-posta veya Platform içi bildirim gönderilecektir. Değişiklik sonrası Platform'u kullanmaya devam etmeniz, güncel Sözleşme'yi kabul ettiğiniz anlamına gelir.</p>
+        </div>
+       </div>
+      </section><!-- Section 2: Üyelik -->
+      <section id="uyelik" class="mb-10">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 2: ÜYELİK KOŞULLARI</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">ÜYELİK ŞARTLARI</p>
+         <p class="mb-3">Platform'a üye olabilmek için aşağıdaki şartların sağlanması gerekmektedir:</p>
+         <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-emerald-50 rounded-xl p-4">
+           <h5 class="font-semibold text-emerald-800 mb-2">Bireysel Üyeler İçin</h5>
+           <ul class="text-sm space-y-1 text-emerald-700">
+            <li>• 18 yaşını doldurmuş olmak</li>
+            <li>• Geçerli bir e-posta adresine sahip olmak</li>
+            <li>• T.C. vatandaşı veya yasal ikamet sahibi olmak</li>
+            <li>• Gerçek ve doğru bilgiler sunmak</li>
+           </ul>
+          </div>
+          <div class="bg-emerald-50 rounded-xl p-4">
+           <h5 class="font-semibold text-emerald-800 mb-2">Kurumsal Üyeler İçin</h5>
+           <ul class="text-sm space-y-1 text-emerald-700">
+            <li>• Tüzel kişiliğe sahip olmak</li>
+            <li>• Yetkili temsilci tarafından başvuru</li>
+            <li>• Vergi levhası ve ticaret sicil bilgileri</li>
+            <li>• Faaliyet belgesi sunmak</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">ÜYELİK TÜRLERİ</p>
+         <div class="space-y-4">
+          <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+           <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-2xl">
+            🌱
+           </div>
+           <div>
+            <h5 class="font-semibold text-gray-900">Temel Üyelik (Ücretsiz)</h5>
+            <p class="text-sm text-gray-600">Profil oluşturma, içerik paylaşma, topluluklara katılma, temel mesajlaşma özellikleri</p>
+           </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200">
+           <div class="w-12 h-12 rounded-full bg-emerald-200 flex items-center justify-center text-2xl">
+            🌳
+           </div>
+           <div>
+            <h5 class="font-semibold text-emerald-800">Premium Üyelik</h5>
+            <p class="text-sm text-emerald-700">Gelişmiş analitik, öncelikli destek, reklamsız deneyim, özel topluluklar, doğrulanmış profil rozeti</p>
+           </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+           <div class="w-12 h-12 rounded-full bg-amber-200 flex items-center justify-center text-2xl">
+            🏢
+           </div>
+           <div>
+            <h5 class="font-semibold text-amber-800">İşletme Üyeliği</h5>
+            <p class="text-sm text-amber-700">Kurumsal sayfa, çoklu kullanıcı yönetimi, pazar yeri özellikleri, API erişimi, reklam araçları</p>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">HESAP GÜVENLİĞİ</p>
+         <p class="mb-3">Kullanıcı, hesap güvenliğinden tamamen sorumludur ve aşağıdaki yükümlülükleri kabul eder:</p>
+         <ul class="list-disc list-inside space-y-2 ml-4">
+          <li>Güçlü ve benzersiz bir şifre oluşturmak ve gizli tutmak</li>
+          <li>İki faktörlü kimlik doğrulamayı (2FA) etkinleştirmek (önerilir)</li>
+          <li>Hesap bilgilerini üçüncü kişilerle paylaşmamak</li>
+          <li>Yetkisiz erişim durumunda derhal Şirket'i bilgilendirmek</li>
+          <li>Oturum açık kalan cihazlarda gerekli önlemleri almak</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">ÜYELİK İPTALİ VE ASKIYA ALMA</p>
+         <p class="mb-3">Şirket, aşağıdaki durumlarda üyeliği askıya alabilir veya sonlandırabilir:</p>
+         <div class="bg-red-50 rounded-xl p-4 border border-red-200">
+          <ul class="space-y-2 text-red-700 text-sm">
+           <li>⚠️ Sözleşme hükümlerinin ihlali</li>
+           <li>⚠️ Sahte veya yanıltıcı bilgi sağlanması</li>
+           <li>⚠️ Topluluk kurallarının tekrarlı ihlali</li>
+           <li>⚠️ Yasadışı faaliyetlerde bulunulması</li>
+           <li>⚠️ Platform güvenliğini tehdit eden davranışlar</li>
+           <li>⚠️ Diğer kullanıcılara zarar verici eylemler</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </section><!-- Section 3: İçerik -->
+      <section id="icerik" class="mb-10">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 3: İÇERİK POLİTİKASI</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">KULLANICI İÇERİĞİ</p>
+         <p class="mb-3">Kullanıcı tarafından Platform'da paylaşılan her türlü içerik ("Kullanıcı İçeriği") için Kullanıcı tek başına sorumludur. Kullanıcı, paylaştığı içeriklerin:</p>
+         <ul class="list-disc list-inside space-y-2 ml-4">
+          <li>Özgün olduğunu veya paylaşım iznine sahip olduğunu</li>
+          <li>Üçüncü kişilerin fikri mülkiyet haklarını ihlal etmediğini</li>
+          <li>Yürürlükteki mevzuata uygun olduğunu</li>
+          <li>Gerçeğe uygun ve yanıltıcı olmadığını beyan ve taahhüt eder</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">LİSANS DEVRİ</p>
+         <p>Kullanıcı, Platform'da paylaştığı her türlü içerik için Şirket'e dünya genelinde, münhasır olmayan, telifsiz, alt lisanslanabilir ve devredilebilir bir lisans vermektedir. Bu lisans; içeriğin Platform'da görüntülenmesi, dağıtılması, çoğaltılması, uyarlanması, işlenmesi ve tanıtım amaçlı kullanılması haklarını kapsar. Kullanıcı, bu lisansın içerik Platform'dan kaldırıldıktan sonra da yedekleme, arşivleme ve yasal yükümlülükler kapsamında devam edebileceğini kabul eder.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">TELİF HAKLARI VE İCRA HAKLARI</p>
+         <p class="mb-3">Platform'da telif hakkı korumasına tabi müzik, görsel, video veya diğer içeriklerin paylaşılması kesinlikle yasaktır. Telif hakkı ihlali tespit edilen içerikler derhal kaldırılacaktır:</p>
+         <div class="bg-red-50 rounded-xl p-4 border border-red-200">
+          <ul class="space-y-2 text-red-700 text-sm">
+           <li><strong>🚫 Telif Hakkı İhlali:</strong> Sahibinin izni olmadan paylaşılan müzik, film, dizi, resim veya diğer sanat eserleri</li>
+           <li><strong>🚫 İcra Hakkı İhlali:</strong> Meşhur kişilerin, sanatçıların veya performansçıların telif ve icra haklarının korunması</li>
+           <li><strong>🎵 Reklamsız Kullanım:</strong> Paylaşılan içerik, hiçbir şekilde ticari amaçla veya reklam amacıyla kullanılmayacaktır</li>
+           <li><strong>⚖️ DMCA Uyumluluğu:</strong> Agrolink, telif hakkı sahiplerinin talep ettiği içerikleri derhal kaldırır ve yasal işlemlere tabi tutar</li>
+          </ul>
+         </div>
+         <p class="mt-4 font-semibold text-red-700">İhtilafı Çözüm: Telif hakkı ve icra hakkı ihlali iddiası için şu adrese bildirim gönderin: <span id="support-email-link" class="text-red-800 underline">noreply.agrolink@gmail.com</span></p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">YASAK İÇERİKLER</p>
+         <p class="mb-3">Platform'da aşağıdaki içeriklerin paylaşılması kesinlikle yasaktır:</p>
+         <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-red-50 rounded-xl p-4 border border-red-200">
+           <h5 class="font-semibold text-red-800 mb-2 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 008.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" />
+            </svg> Kesinlikle Yasak</h5>
+           <ul class="text-sm space-y-1 text-red-700">
+            <li>• Nefret söylemi ve ayrımcılık</li>
+            <li>• Şiddet içeren veya tehdit edici içerik</li>
+            <li>• Çocuk istismarı içerikleri</li>
+            <li>• Terörü destekleyen içerikler</li>
+            <li>• Pornografik materyal</li>
+           </ul>
+          </div>
+          <div class="bg-orange-50 rounded-xl p-4 border border-orange-200">
+           <h5 class="font-semibold text-orange-800 mb-2 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg> Kısıtlı İçerikler</h5>
+           <ul class="text-sm space-y-1 text-orange-700">
+            <li>• Yanıltıcı tarımsal bilgiler</li>
+            <li>• Spam ve istenmeyen reklamlar</li>
+            <li>• Kimlik avı girişimleri</li>
+            <li>• Telif hakkı ihlalleri</li>
+            <li>• Kişisel bilgi ifşası</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">İÇERİK MODERASYONU</p>
+         <p>Şirket, Platform'da paylaşılan içerikleri önceden inceleme yükümlülüğü taşımamakla birlikte, dilediği içeriği herhangi bir gerekçe göstermeksizin kaldırma, düzenleme veya erişimi kısıtlama hakkını saklı tutar. Yapay zeka destekli otomatik moderasyon sistemleri ve insan moderatörler içerik denetimi için kullanılmaktadır.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">FİKRİ MÜLKİYET</p>
+         <p>Platform'un tasarımı, logosu, yazılımı, veritabanları ve özgün içerikleri Şirket'in münhasır mülkiyetindedir. Agrolink markası ve ilgili tüm ticari markalar tescillidir. Kullanıcılar, Şirket'in yazılı izni olmaksızın bu varlıkları kullanamaz, kopyalayamaz veya dağıtamaz.</p>
+        </div>
+       </div>
+      </section><!-- Section 4: Gizlilik -->
+      <section id="gizlilik" class="mb-10">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 4: GİZLİLİK VE VERİ KORUMA</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">KİŞİSEL VERİLERİN İŞLENMESİ</p>
+         <p class="mb-3">Şirket, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") ve ilgili mevzuat kapsamında veri sorumlusu sıfatıyla hareket etmektedir. Toplanan veriler:</p>
+         <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+           <div>
+            <h5 class="font-semibold text-blue-800 mb-2">Doğrudan Toplanan</h5>
+            <ul class="space-y-1 text-blue-700">
+             <li>• Ad, soyad, e-posta</li>
+             <li>• Telefon numarası</li>
+             <li>• Profil fotoğrafı</li>
+             <li>• Konum bilgisi (izinli)</li>
+             <li>• Tarımsal faaliyet bilgileri</li>
+            </ul>
+           </div>
+           <div>
+            <h5 class="font-semibold text-blue-800 mb-2">Otomatik Toplanan</h5>
+            <ul class="space-y-1 text-blue-700">
+             <li>• IP adresi</li>
+             <li>• Cihaz bilgileri</li>
+             <li>• Tarayıcı türü</li>
+             <li>• Kullanım istatistikleri</li>
+             <li>• Çerez verileri</li>
+            </ul>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">VERİ İŞLEME AMAÇLARI</p>
+         <p class="mb-3">Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p>
+         <ul class="list-disc list-inside space-y-2 ml-4">
+          <li>Üyelik işlemlerinin yürütülmesi ve hesap yönetimi</li>
+          <li>Platform hizmetlerinin sunulması ve iyileştirilmesi</li>
+          <li>Kişiselleştirilmiş içerik ve öneriler sunulması</li>
+          <li>İletişim ve müşteri destek hizmetleri</li>
+          <li>Güvenlik ve dolandırıcılık önleme</li>
+          <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+          <li>Anonim istatistiksel analizler</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">VERİ PAYLAŞIMI</p>
+         <p class="mb-3">Kişisel verileriniz aşağıdaki durumlar haricinde üçüncü kişilerle paylaşılmaz:</p>
+         <ul class="list-disc list-inside space-y-2 ml-4">
+          <li>Açık rızanızın bulunması</li>
+          <li>Yasal zorunluluklar (mahkeme kararı, resmi talep)</li>
+          <li>Hizmet sağlayıcılarımız (gizlilik sözleşmesi kapsamında)</li>
+          <li>Şirket birleşme veya devir işlemleri</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">VERİ SAHİBİ HAKLARI</p>
+         <p class="mb-3">KVKK kapsamında aşağıdaki haklara sahipsiniz:</p>
+         <div class="bg-emerald-50 rounded-xl p-4 grid md:grid-cols-2 gap-3 text-sm">
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> Verilerinizin işlenip işlenmediğini öğrenme</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> İşlenmişse bilgi talep etme</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> İşlenme amacını öğrenme</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> Aktarıldığı üçüncü kişileri bilme</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> Eksik/yanlış verilerin düzeltilmesini isteme</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> Verilerin silinmesini talep etme</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> İşlemeye itiraz etme</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-500">✓</span> Zararın giderilmesini talep etme</p>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">VERİ GÜVENLİĞİ</p>
+         <p>Şirket, kişisel verilerinizi korumak için endüstri standardı güvenlik önlemleri uygulamaktadır. Bunlar arasında SSL şifreleme, güvenlik duvarları, düzenli güvenlik denetimleri, erişim kontrolü ve veri yedekleme prosedürleri bulunmaktadır. Ancak internet üzerinden hiçbir veri iletiminin %100 güvenli olmadığını kabul edersiniz.</p>
+        </div>
+       </div>
+      </section><!-- Section 5: Hizmet Kullanımı -->
+      <section class="mb-10">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 5: HİZMET KULLANIMI</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">KABUL EDİLEBİLİR KULLANIM</p>
+         <p class="mb-3">Platform'u kullanırken aşağıdaki kurallara uymanız gerekmektedir:</p>
+         <ul class="list-disc list-inside space-y-2 ml-4">
+          <li>Yürürlükteki tüm yasalara ve düzenlemelere uymak</li>
+          <li>Diğer kullanıcıların haklarına saygı göstermek</li>
+          <li>Platform'un normal işleyişini bozmamak</li>
+          <li>Topluluk kurallarına ve standartlarına uymak</li>
+          <li>Doğru ve güncel bilgiler sağlamak</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">YASAK FAALİYETLER</p>
+         <p class="mb-3">Aşağıdaki faaliyetler kesinlikle yasaktır ve hesap askıya alma veya kalıcı yasaklama ile sonuçlanabilir:</p>
+         <div class="bg-gray-50 rounded-xl p-4 space-y-3">
+          <div class="flex items-start gap-3"><span class="text-red-500 text-xl">🚫</span>
+           <div>
+            <h5 class="font-semibold text-gray-900">Teknik Suistimal</h5>
+            <p class="text-sm text-gray-600">Hacking, reverse engineering, bot kullanımı, API kötüye kullanımı, DDoS saldırıları</p>
+           </div>
+          </div>
+          <div class="flex items-start gap-3"><span class="text-red-500 text-xl">🚫</span>
+           <div>
+            <h5 class="font-semibold text-gray-900">Dolandırıcılık</h5>
+            <p class="text-sm text-gray-600">Sahte hesaplar, kimlik hırsızlığı, yanıltıcı tanıtım, piramit şemaları</p>
+           </div>
+          </div>
+          <div class="flex items-start gap-3"><span class="text-red-500 text-xl">🚫</span>
+           <div>
+            <h5 class="font-semibold text-gray-900">Taciz ve Zorbalık</h5>
+            <p class="text-sm text-gray-600">Sistematik taciz, stalking, tehdit, doxxing, hedefli kötüye kullanım</p>
+           </div>
+          </div>
+          <div class="flex items-start gap-3"><span class="text-red-500 text-xl">🚫</span>
+           <div>
+            <h5 class="font-semibold text-gray-900">Spam ve Manipülasyon</h5>
+            <p class="text-sm text-gray-600">Toplu spam, sahte etkileşim, algoritma manipülasyonu, koordineli inautantik davranış</p>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">HİZMET SÜREKLİLİĞİ</p>
+         <p>Şirket, Platform'un kesintisiz ve hatasız çalışacağını garanti etmez. Bakım, güncelleme veya teknik sorunlar nedeniyle hizmet kesintileri yaşanabilir. Şirket, önceden haber vermeksizin hizmetleri değiştirme, askıya alma veya sonlandırma hakkını saklı tutar.</p>
+        </div>
+       </div>
+      </section><!-- Section 6: Ticari Hükümler -->
+      <section class="mb-10">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 6: TİCARİ HÜKÜMLER</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">ÜCRETLİ HİZMETLER</p>
+         <p class="mb-3">Premium üyelik ve diğer ücretli hizmetler için aşağıdaki koşullar geçerlidir:</p>
+         <ul class="list-disc list-inside space-y-2 ml-4">
+          <li>Fiyatlar Türk Lirası cinsinden belirlenmiş olup vergiler dahildir</li>
+          <li>Ödemeler kredi kartı, banka kartı veya diğer onaylı yöntemlerle yapılabilir</li>
+          <li>Abonelikler, iptal edilmediği sürece otomatik olarak yenilenir</li>
+          <li>Fiyat değişiklikleri yeni dönemden itibaren geçerli olur</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">İADE POLİTİKASI</p>
+         <p class="mb-3">İade talepleri aşağıdaki koşullar çerçevesinde değerlendirilir:</p>
+         <div class="bg-gray-50 rounded-xl p-4">
+          <ul class="space-y-2 text-sm">
+           <li><strong>14 Gün İçinde:</strong> Hizmeti hiç kullanmadıysanız tam iade</li>
+           <li><strong>Teknik Sorunlar:</strong> Şirket kaynaklı sorunlarda orantılı iade</li>
+           <li><strong>Kısmi Kullanım:</strong> Kullanılmayan süre için kısmi iade değerlendirilebilir</li>
+           <li><strong>Promosyonlar:</strong> İndirimli satışlar için özel koşullar uygulanabilir</li>
+          </ul>
+         </div>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">PAZAR YERİ HÜKÜMLERİ</p>
+         <p>Platform üzerindeki pazar yeri özelliği, kullanıcıların tarımsal ürün ve hizmet alışverişinde bulunmasına olanak tanır. Şirket, alıcı ve satıcı arasındaki işlemlerin tarafı değildir ve aracı konumundadır. İşlem kaynaklı uyuşmazlıklarda sorumluluk taraflara aittir.</p>
+        </div>
+       </div>
+      </section><!-- Section 7: Sorumluluk -->
+      <section class="mb-10">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 7: SORUMLULUK VE TAZMİNAT</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">SORUMLULUK SINIRLAMASI</p>
+         <p class="mb-3">Şirket, yürürlükteki mevzuatın izin verdiği azami ölçüde aşağıdaki hususlardan sorumlu tutulamaz:</p>
+         <ul class="list-disc list-inside space-y-2 ml-4">
+          <li>Kullanıcı içeriklerinin doğruluğu veya güvenilirliği</li>
+          <li>Üçüncü taraf web sitelerine verilen bağlantılar</li>
+          <li>Platform kullanımından kaynaklanan dolaylı zararlar</li>
+          <li>Veri kaybı, iş kesintisi veya kar kaybı</li>
+          <li>Yetkisiz erişim veya güvenlik ihlalleri (makul önlemler alınmış olması kaydıyla)</li>
+          <li>Kullanıcılar arası uyuşmazlıklar</li>
+         </ul>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">TAZMİNAT YÜKÜMLÜLÜĞÜ</p>
+         <p>Kullanıcı, işbu Sözleşme'nin ihlali, Kullanıcı İçeriği veya Platform kullanımından kaynaklanan her türlü talep, dava, zarar ve masrafa karşı Şirket'i, yöneticilerini, çalışanlarını ve temsilcilerini savunmayı, tazmin etmeyi ve zarar görmemelerini sağlamayı kabul eder.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">GARANTİ REDDİ</p>
+         <p>Platform "olduğu gibi" ve "mevcut haliyle" sunulmaktadır. Şirket, Platform'un kesintisiz, hatasız, güvenli veya belirli bir amaca uygun olacağına dair açık veya zımni hiçbir garanti vermemektedir. Tarımsal tavsiyeler bilgilendirme amaçlıdır ve profesyonel danışmanlık yerine geçmez.</p>
+        </div>
+       </div>
+      </section><!-- Section 8: Son Hükümler -->
+      <section class="mb-6">
+       <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-emerald-200">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+         </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-gray-900">BÖLÜM 8: SON HÜKÜMLER</h3>
+       </div>
+       <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">UYGULANACAK HUKUK</p>
+         <p>İşbu Sözleşme, Türkiye Cumhuriyeti kanunlarına tabi olup bu kanunlara göre yorumlanacaktır. Kanunlar ihtilafı kuralları uygulanmayacaktır.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">UYUŞMAZLIK ÇÖZÜMÜ</p>
+         <p class="mb-3">Sözleşme'den doğan uyuşmazlıkların çözümünde:</p>
+         <ol class="list-decimal list-inside space-y-2 ml-4">
+          <li><strong>Müzakere:</strong> Taraflar öncelikle dostane çözüm arayacaktır</li>
+          <li><strong>Arabuluculuk:</strong> Müzakere başarısız olursa arabuluculuğa başvurulabilir</li>
+          <li><strong>Yargı:</strong> İstanbul Mahkemeleri ve İcra Daireleri yetkilidir</li>
+         </ol>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">BÖLÜNEBİLİRLİK</p>
+         <p>İşbu Sözleşme'nin herhangi bir hükmünün geçersiz veya uygulanamaz bulunması, diğer hükümlerin geçerliliğini etkilemeyecektir. Geçersiz hüküm, tarafların niyetine en yakın geçerli hükümle değiştirilmiş sayılacaktır.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">FERAGAT</p>
+         <p>Şirket'in işbu Sözleşme kapsamındaki herhangi bir hakkını kullanmaması veya kullanmada gecikmesi, söz konusu haktan feragat ettiği anlamına gelmez.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">TAM SÖZLEŞME</p>
+         <p>İşbu Sözleşme ve ekleri (Gizlilik Politikası, Çerez Politikası, Topluluk Kuralları), taraflar arasındaki tam mutabakatı oluşturur ve konuya ilişkin önceki tüm yazılı veya sözlü anlaşmaların yerine geçer.</p>
+        </div>
+        <div class="pl-4 border-l-4 border-emerald-300">
+         <p class="article-number font-semibold text-gray-900 mb-2">İLETİŞİM VE HUKUK MÜŞAVİRLİĞİ</p>
+         <p class="mb-3">Sözleşme hakkında sorularınız ve ihtilafları çözmek için bizimle iletişime geçebilirsiniz:</p>
+         <div class="bg-emerald-50 rounded-xl p-4 space-y-2">
+          <p class="flex items-center gap-2"><span class="text-emerald-600">📧</span> <strong>E-posta:</strong> <span id="contact-email">noreply.agrolink@gmail.com</span></p>
+          <p class="flex items-center gap-2"><span class="text-emerald-600">📞</span> <strong>Telefon:</strong> 0850 XXX XX XX</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-600">📍</span> <strong>Hukuk Müşaviri:</strong> Vural Öztürk (Finans Müdürü)</p>
+          <p class="flex items-center gap-2"><span class="text-emerald-600">🌐</span> <strong>Web:</strong> www.agrolink.com.tr</p>
+         </div>
+        </div>
+       </div>
+      </section>
+     </div>
+    </div><!-- Accept Section -->
+    <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 md:p-8 mt-8 opacity-0 animate-fade-in animate-delay-3">
+     <div class="flex items-start gap-4 mb-6"><input type="checkbox" id="accept-checkbox" class="w-5 h-5 mt-1 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer"> <label for="accept-checkbox" class="text-gray-700 cursor-pointer"> İşbu <strong>Kullanıcı Sözleşmesi</strong>'ni, <strong>Gizlilik Politikası</strong>'nı ve <strong>Çerez Politikası</strong>'nı okudum, anladım ve kabul ediyorum. 18 yaşından büyük olduğumu ve bu sözleşmeyi akdetme ehliyetine sahip olduğumu beyan ederim. </label>
+     </div>
+     <div class="flex flex-col sm:flex-row gap-4"><button id="accept-btn" disabled class="flex-1 px-6 py-4 bg-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-emerald-600"> <span id="accept-btn-text">Sözleşmeyi Kabul Ediyorum</span> </button> <button class="px-6 py-4 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 focus:ring-4 focus:ring-gray-100 transition-all"> Reddet </button>
+     </div>
+     <p class="text-xs text-gray-500 mt-4 text-center">Sözleşmeyi kabul ederek Agrolink topluluğuna katılıyor ve tarımın geleceğine katkıda bulunuyorsunuz. 🌾</p>
+    </div><!-- Version Info & Credits -->
+    <div class="text-center mt-8 text-sm text-gray-500 space-y-2">
+     <p>Sözleşme Versiyonu: 2.2.0 | Son Güncelleme: <span id="footer-date"></span></p>
+     <p class="mt-2 text-xs"><strong>Hazırlayan:</strong> Vural Öztürk (Finans Müdürü) | <strong>CEO &amp; Developer:</strong> Salih Öztürk</p>
+     <p class="mt-1">© 2026 Agrolink Tarım Teknolojileri A.Ş. Tüm hakları saklıdır. ®</p>
+    </div>
+   </main>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      main_title: 'Kullanıcı Sözleşmesi',
+      company_name: 'Agrolink',
+      accept_button_text: 'Sözleşmeyi Kabul Ediyorum',
+      support_email: 'noreply.agrolink@gmail.com',
+      redirect_url: 'https://sehitumitkestitarimmtal.com/',
+      background_color: '#f0f7f0',
+      surface_color: '#ffffff',
+      text_color: '#374151',
+      primary_action_color: '#059669',
+      secondary_action_color: '#10b981'
+    };
+
+    // Set current date
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('update-date').textContent = dateStr;
+    document.getElementById('footer-date').textContent = dateStr;
+    document.getElementById('support-email-link').textContent = defaultConfig.support_email;
+    document.getElementById('contact-email').textContent = defaultConfig.support_email;
+
+    // Checkbox functionality
+    const checkbox = document.getElementById('accept-checkbox');
+    const acceptBtn = document.getElementById('accept-btn');
+
+    checkbox.addEventListener('change', () => {
+      acceptBtn.disabled = !checkbox.checked;
+    });
+
+    // Accept button functionality
+    acceptBtn.addEventListener('click', () => {
+      if (checkbox.checked) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+        successDiv.innerHTML = `
+          <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl">
+            <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-gray-900 mb-2">Hoş Geldiniz! ✨</h3>
+            <p class="text-gray-600 mb-4">Kullanıcı sözleşmesi başarıyla kabul edildi. Agrolink ailesine katıldığınız için teşekkür ederiz!</p>
+            <p class="text-xs text-gray-500 mb-6">Yönlendiriliyorsunuz...</p>
+            <div class="w-8 h-8 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin mx-auto"></div>
+          </div>
+        `;
+        document.body.appendChild(successDiv);
+
+        // Redirect after 2 seconds
+        setTimeout(() => {
+          window.open(defaultConfig.redirect_url, '_blank', 'noopener,noreferrer');
+          successDiv.remove();
+        }, 2000);
+      }
+    });
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const mainTitle = document.getElementById('main-title');
+          const companyName = document.getElementById('company-name');
+          const acceptBtnText = document.getElementById('accept-btn-text');
+          const appWrapper = document.getElementById('app-wrapper');
+          const emailLink = document.getElementById('support-email-link');
+          const contactEmail = document.getElementById('contact-email');
+
+          if (mainTitle) mainTitle.textContent = config.main_title || defaultConfig.main_title;
+          if (companyName) companyName.textContent = config.company_name || defaultConfig.company_name;
+          if (acceptBtnText) acceptBtnText.textContent = config.accept_button_text || defaultConfig.accept_button_text;
+          if (emailLink) emailLink.textContent = config.support_email || defaultConfig.support_email;
+          if (contactEmail) contactEmail.textContent = config.support_email || defaultConfig.support_email;
+
+          // Update redirect URL
+          if (config.redirect_url) defaultConfig.redirect_url = config.redirect_url;
+          if (config.support_email) defaultConfig.support_email = config.support_email;
+
+          // Apply colors
+          const bgColor = config.background_color || defaultConfig.background_color;
+          const surfaceColor = config.surface_color || defaultConfig.surface_color;
+          const textColor = config.text_color || defaultConfig.text_color;
+          const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+
+          if (appWrapper) {
+            appWrapper.style.background = `linear-gradient(135deg, ${bgColor} 0%, ${bgColor} 50%, ${surfaceColor} 100%)`;
+          }
+
+          document.querySelectorAll('.bg-white').forEach(el => {
+            el.style.backgroundColor = surfaceColor;
+          });
+
+          document.querySelectorAll('.text-gray-700, .text-gray-900').forEach(el => {
+            el.style.color = textColor;
+          });
+
+          const acceptButton = document.getElementById('accept-btn');
+          if (acceptButton) {
+            acceptButton.style.backgroundColor = primaryColor;
+          }
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => { config.primary_action_color = value; window.elementSdk.setConfig({ primary_action_color: value }); }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => { config.secondary_action_color = value; window.elementSdk.setConfig({ secondary_action_color: value }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['main_title', config.main_title || defaultConfig.main_title],
+          ['company_name', config.company_name || defaultConfig.company_name],
+          ['accept_button_text', config.accept_button_text || defaultConfig.accept_button_text],
+          ['support_email', config.support_email || defaultConfig.support_email],
+          ['redirect_url', config.redirect_url || defaultConfig.redirect_url]
+        ])
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cc6c2bb232c517d',t:'MTc3MDg0MzQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
